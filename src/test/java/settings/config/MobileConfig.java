@@ -5,22 +5,26 @@ import org.aeonbits.owner.Config;
 @Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
         "system:properties",
-        "classpath:${deviceHost}.properties"
+        "classpath:${env}.properties"
 })
 public interface MobileConfig extends Config {
 
-    @Key("settings.host")
-    String getHost();
-
+    @Key("user.login")
+    String getLogin();
+    @Key("user.password")
+    String getPassword();
+    @Key("browserstack.url.application")
+    String getUrlApplicationBrowserstack();
+    @Key("browserstack.url")
+    String getUrlBrowserstack();
     @Key("settings.device")
     String getDevice();
-
-    @Key("settings.osVersion")
+    @Key("settings.os_version")
     String getOsVersion();
-
-    @Key("settings.appPackage")
-    String getAppPackage();
-
-    @Key("settings.appActivity")
-    String getAppActivity();
+    @Key("other.project")
+    String getProject();
+    @Key("other.build")
+    String getBuildNumber();
+    @Key("other.name")
+    String getBuildName();
 }

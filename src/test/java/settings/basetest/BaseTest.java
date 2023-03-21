@@ -8,13 +8,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import settings.config.TestConfiguration;
+import settings.drivers.BrowserstackMobileDriver;
 import settings.helpers.Attach;
 
 public class BaseTest {
 
     @BeforeAll
-    static void init() throws Exception {
-        TestConfiguration testConfiguration = new TestConfiguration(System.getProperty("deviceHost"));
+    static void init(){
+        TestConfiguration testConfiguration = new TestConfiguration();
 
         //костыль для корректной работы селенида
         Configuration.browserSize = null;
@@ -29,8 +30,7 @@ public class BaseTest {
     }
 
     @AfterEach
-    void closeSession() {
-        String HOST = System.getProperty("deviceHost");
+    void closeSession(){
         String sessionId = Selenide.sessionId().toString();
 
 //        Attach.screenshotAs("");
@@ -38,8 +38,6 @@ public class BaseTest {
 
         Selenide.closeWebDriver();
 
-        if (HOST.equals("browserstack")) {
-            Attach.addVideo(sessionId);
-        }
+        Attach.addVideo(sessionId);
     }
 }
